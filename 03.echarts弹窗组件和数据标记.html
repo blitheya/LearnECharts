@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <!-- 1.导入ECharts插件 -->
+  <script src="lib/echarts.js"></script>
+</head>
+
+<body>
+  <!-- 2.为ECharts准备一个容器 -->
+  <div style="width: 600px;height: 400px;"></div>
+</body>
+<script>
+  //3.拿到准备好的容器
+  let oDIv = document.querySelector("div");
+  // 4.创建一个ECharts对象
+  let myCharts = echarts.init(oDIv);
+  // 5.对oDiv进行一些配置
+  let option = {
+    // 弹窗组件
+    tooltip: {
+      show: true,
+      // 具体取值
+      trigger:"axis"
+    },
+    // 设置图表标题
+    title: {
+      text: 'ECharts 入门示例'
+    },
+    // 设置图表图例
+    legend: {
+      data: ['销量', '产量']
+    },
+    // 设置X上的数据
+    xAxis: {
+      data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"]
+    },
+    // 设置Y轴上的数据
+    yAxis: {},
+    // 设置图表数据
+    series: [
+      {
+        name: '销量',
+        type: 'bar',
+        data: [5, 20, 36, 10, 10, 20],
+        // 标记点
+        markPoint: {
+          data:[
+            {type:"max",name:"最大值"},
+            {type:"min",name:"最小值"},
+          ]
+        }
+      }, 
+      {
+        name: '产量',
+        type: 'bar',
+        data: [50, 40, 50, 100, 100, 200],
+        // 标记线
+        markLine: {
+          data:[
+            {type:"max",name:"最大值"},
+            {type:"min",name:"最小值"},
+            {type:"average",name:"平均值"},
+          ]
+        }
+      }]
+  };
+  // 6.将配置传递给ECharts
+  myCharts.setOption(option);
+
+</script>
+
+</html>

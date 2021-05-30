@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <!-- 1.导入ECharts插件 -->
+  <script src="lib/echarts.js"></script>
+</head>
+
+<body>
+  <!-- 2.为ECharts准备一个容器 -->
+  <div style="width: 600px;height: 400px;"></div>
+</body>
+<script>
+  //3.拿到准备好的容器
+  let oDIv = document.querySelector("div");
+  // 4.创建一个ECharts对象
+  let myCharts = echarts.init(oDIv);
+  // 5.对oDiv进行一些配置
+  let option = {
+    // 设置图表标题
+    title: {
+      text: 'ECharts 入门示例',
+      subtext: "lalalal"
+    },
+    // 设置图表图例
+    legend: {
+      data: ['销量', '产量']
+    },
+    // 工具箱组件
+    toolbox: {
+      show: true,
+      feature: {
+        // 保存为图标
+        saveAsImage: {
+          show: true
+        },
+        // 数据视图
+        dataView: {
+          show: true
+        },
+        // 还原原始数据
+        restore: {
+          show: true
+        },
+        // 放大数据区域（缩放）
+        dataZoom: {
+          show: true
+        },
+        // 数据显示类型切换
+        magicType: {
+          type: ["bar","line"]
+        }
+      }
+    },
+    // 设置X上的数据
+    xAxis: {
+      data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"]
+    },
+    // 设置Y轴上的数据
+    yAxis: {},
+    // 设置图表数据
+    series: [
+      {
+        name: '销量',
+        type: 'bar',
+        data: [5, 20, 36, 10, 10, 20]
+      },
+      {
+        name: '产量',
+        type: 'line',
+        data: [50, 40, 50, 100, 100, 200]
+      }]
+  };
+  // 6.将配置传递给ECharts
+  myCharts.setOption(option);
+
+</script>
+
+</html>
