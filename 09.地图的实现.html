@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="lib/echarts.js"></script>
+  <script src="lib/jquery-1.12.2.js"></script>
+</head>
+
+<body>
+  <div style="height: 400px; width: 600px;border: 1px solid #000;"></div>
+</body>
+<script>
+  let oDiv = document.querySelector("div");
+  // 使用ajax获取矢量地图数据
+  $.get('json/map/china.json', ret => {
+    // ret 就是中国各个省份的数据
+    echarts.registerMap('chinaMap', ret)
+    let option = {
+      geo: {
+        type: 'map',
+        map: 'chinaMap',//chinaMap需要和registerMap中的第一个数据保持一致
+        roam:true,//设置允许缩放以及拖动的效果
+        label: {
+          show: true//展示每个省份的名字
+        },
+        zoom:1//设置初始缩放比例
+      }
+    }
+    let myCharts = echarts.init(oDiv);
+    myCharts.setOption(option)
+  })
+
+</script>
+
+</html>

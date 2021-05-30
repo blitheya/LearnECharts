@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="lib/echarts.js"></script>
+  <script src="lib/jquery-1.12.2.js"></script>
+</head>
+
+<body>
+  <div style="height: 400px; width: 600px;border: 1px solid #000;"></div>
+</body>
+<script>
+  let oDiv = document.querySelector("div");
+  let myCharts = echarts.init(oDiv)
+  $.get('json/map/chongqing.json', ret => {
+    console.log(ret)
+    echarts.registerMap('chongqing', ret)
+    let option = {
+      geo: {
+        type: 'map',
+        map: 'chongqing',
+        zoom:0.9,
+        roam:true,
+        label: {
+          show: true
+        },
+        center:[106.56288, 29.556742]//以渝中区作为中心点
+      }
+    }
+    myCharts.setOption(option)
+  })
+
+</script>
+
+</html>
