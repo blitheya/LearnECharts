@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="lib/echarts.js"></script>
+</head>
+
+<body>
+  <div style="border: 1px solid #000;width: 600px; height: 400px;"></div>
+  <button id="modify">修改数据</button>
+  <button id="add">增加数据</button>
+</body>
+<script>
+  let oDiv = document.querySelector("div");
+  let myCharts = echarts.init(oDiv);
+  let xData = ["张三", "李四", "王五", "闰土", "小明", "茅台", "二妞", "大强"]
+  let yData = [88, 92, 63, 77, 94, 80, 72, 86]
+  let option = {
+    title: {
+      text: "期末语文成绩",
+      textStyle: {
+        color: 'red'
+      },
+      borderWidth: 2,
+      borderColor: 'blue',
+      borderRadius: 5,
+      left: 50,
+      top: 10
+    },
+    tooltip: {
+      trigger: 'item',
+      triggerOn: 'click',
+      formatter: '{b}的成绩是{c}'
+    },
+    xAxis: {
+      type: 'category',
+      data: xData
+    },
+    yAxis: {
+      type: 'value'
+    },
+    series: [{
+      name: '语文',
+      type: 'bar',
+      markPoint: {
+        data: [
+          { type: 'max', name: '最大值' },
+          { type: 'min', name: '最小值' }
+        ]
+      },
+      markLine: {
+        data: [
+          { type: 'average', name: '平均值' }
+        ]
+      },
+      // 显示数值
+      label: {
+        show: true,
+        position: 'top'
+      },
+      data: yData
+    }]
+
+  }
+  myCharts.setOption(option)
+
+  let btn = document.querySelector('#modify')
+  btn.onclick = () => {
+    var newYDataArr = [68, 32, 99, 77, 94, 80, 72, 86]
+
+    let option = {
+      series: [
+        {
+          data: newYDataArr
+        }
+      ]
+
+    }
+    myCharts.setOption(option)
+  }
+  let addBtn = document.querySelector("#add")
+  addBtn.onclick = () => {
+    xData.push('小明')
+    yData.push(98)
+    let option = {
+      xAxis: {
+        data: xData
+      },
+      series: [
+        {
+          data: yData
+        }
+      ]
+    }
+    myCharts.setOption(option)
+  }
+</script>
+
+</html>

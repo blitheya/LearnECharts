@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="lib/echarts.js"></script>
+</head>
+
+<body>
+  <div style="border: 1px solid #000;height: 500px;"></div>
+</body>
+<script>
+  let oDiv = document.querySelector("div");
+  let myCharts = echarts.init(oDiv);
+  let option = {
+    title: {
+      text: "期末语文成绩",
+      textStyle:{
+        color: 'red'
+      },
+      borderWidth:2,
+      borderColor:'blue',
+      borderRadius:5,
+      left:50,
+      top:10
+    },
+    tooltip:{
+      trigger:'item',
+      triggerOn:'click',
+      formatter:'{b}的成绩是{c}'
+    },
+    xAxis: {
+      type:'category',
+      data: ["张三", "李四", "王五", "闰土", "小明", "茅台", "二妞", "大强"]
+    },
+    yAxis: {
+      type:'value'
+    },
+    series: [{
+      name:'语文',
+      type: 'bar',
+      markPoint: {
+        data:[
+          { type:'max',name:'最大值'},
+          { type:'min',name:'最小值'}
+        ]
+      },
+      markLine: {
+        data: [
+          {type:'average',name:'平均值'}
+        ]
+      },
+      // 显示数值
+      label:{
+        show: true,
+        position: 'top'
+      },
+      data: [88, 92, 63, 77, 94, 80, 72, 86]
+    }]
+
+  }
+  myCharts.setOption(option)
+  // 监听window窗口大小变化的事件
+  // window.onresize = () => myCharts.resize()
+  window.onresize = myCharts.resize
+</script>
+
+</html>

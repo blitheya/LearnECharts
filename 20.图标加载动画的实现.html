@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="lib/echarts.js"></script>
+  <script src="lib/jquery-1.12.2.js"></script>
+</head>
+
+<body>
+  <div style="height: 400px; width: 600px;"></div>
+</body>
+<script>
+  let oDiv = document.querySelector("div");
+  let myCharts = echarts.init(oDiv);
+  myCharts.showLoading()//在获取数据之前要显示加载动画
+  $.get('data/data.json', (ret) => {
+    myCharts.hideLoading()//在服务器获取到数据的时候要隐藏加载动画
+    let axisData = ret.map(item => [item.height, item.weight])
+    let option = {
+      xAxis: {
+        type: 'value',
+        // 脱离0值比例
+        scale: true
+      },
+      yAxis: {
+        type: 'value',
+        scale: true
+
+      },
+      tooltip: {
+
+      },
+      series: [
+        {
+          type: 'scatter',
+          data: axisData,
+          symbolSize: arg => {
+            let height = arg[0] / 100
+            let weight = arg[1]
+            let bmi = weight / (height * height)
+            return 0.5 * bmi
+          }
+        }
+      ],
+
+    }
+    myCharts.setOption(option)
+  })
+
+
+
+
+</script>
+
+</html>
