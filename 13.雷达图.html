@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="lib/echarts.js"></script>
+</head>
+
+<body>
+  <div style="border: 1px solid #000; width: 600px; height: 400px;"></div>
+</body>
+<script>
+  let oDiv = document.querySelector('div');
+  let myCharts = echarts.init(oDiv);
+  let dataMax = [
+    { name: '易用性', max: 100 },
+    { name: '功能', max: 100 },
+    { name: '拍照', max: 100 },
+    { name: '跑分', max: 100 },
+    { name: '续航', max: 100 },
+  ]
+  let option = {
+    radar: {
+      indicator: dataMax,//配置各个维度的最大值
+      shape: 'polygon' // 配置雷达图最外层的图形 circle
+    },
+    series: [
+      {
+        type: 'radar',
+        label: {
+          show:true//显示数值
+        },
+        areaStyle: {},//形成阴影面积区域
+        data: [
+          {name:'华为手机', value: [80,90,80,82,90]},
+          {name:'小米手机', value: [70,82,75,70,78]}
+        ]
+      }
+    ]
+  }
+  myCharts.setOption(option)
+</script>
+
+</html>

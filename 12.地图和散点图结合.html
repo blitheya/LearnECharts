@@ -52,6 +52,9 @@
     { name: '澳门', value: 77 },
     { name: '南海诸岛', value: 55 }
   ]
+  let scatterData = [
+    { value: [117.283042, 31.86119]}
+  ]
   // 使用ajax获取矢量地图数据
   $.get('json/map/china.json', ret => {
     // ret 就是中国各个省份的数据
@@ -73,6 +76,14 @@
           data:airData,
           geoIndex:0,//将空气质量的数据和第一个geo配置关联在一起
           type:'map'
+        },
+        {
+          data : scatterData,//配置散点数据
+          type: 'effectScatter',
+          coordinateSystem: 'geo',//指明散点使用的坐标系统 市 geo的坐标系统
+          rippleEffect: {
+            scale: 10
+          }
         }
       ],
       visualMap: {
