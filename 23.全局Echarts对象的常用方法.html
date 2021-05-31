@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="lib/echarts.js"></script>
+  <script src="theme/theme1.js"></script>
+  <script src="lib/jquery-1.12.2.js"></script>
+</head>
+
+<body>
+  <div style="border: 1px solid #000;width: 600px; height: 400px;" id="div1"></div>
+  <div style="border: 1px solid red;width: 600px; height: 400px;" id="div2"></div>
+</body>
+<script>
+  /*
+  init: 初始化ECharts实例对象，使用主题
+  registerTheme: 注册主题
+  registerMap: 注册地图数据
+  connect: 实现多图的关联
+  {
+    保存图片的自动拼接
+    刷新按钮
+    重置按钮
+    提示框联动，图例选择等等、、、
+  }
+  */
+
+  let oDiv1 = document.querySelector("#div1");
+  let oDiv2 = document.querySelector("#div2");
+  let myCharts = echarts.init(oDiv1, 'theme1');
+  let option = {
+    toolbox: {
+      feature: {
+        saveAsImage: {}
+      }
+    },
+    title: {
+      text: "期末语文成绩",
+      textStyle: {
+        color: 'red'
+      },
+      borderWidth: 2,
+      borderColor: 'blue',
+      borderRadius: 5,
+      left: 50,
+      top: 10
+    },
+    tooltip: {
+      trigger: 'item',
+      triggerOn: 'click',
+      formatter: '{b}的成绩是{c}'
+    },
+    xAxis: {
+      type: 'category',
+      data: ["张三", "李四", "王五", "闰土", "小明", "茅台", "二妞", "大强"]
+    },
+    yAxis: {
+      type: 'value'
+    },
+    series: [{
+      name: '语文',
+      type: 'bar',
+      markPoint: {
+        data: [
+          { type: 'max', name: '最大值' },
+          { type: 'min', name: '最小值' }
+        ]
+      },
+      markLine: {
+        data: [
+          { type: 'average', name: '平均值' }
+        ]
+      },
+      // 显示数值
+      label: {
+        show: true,
+        position: 'top'
+      },
+      data: [88, 92, 63, 77, 94, 80, 72, 86]
+    }]
+
+  }
+  myCharts.setOption(option)
+
+  let myCharts2 = echarts.init(oDiv2)
+  $.get('json/map/china.json', (ret) => {
+    echarts.registerMap('aa', ret)
+    let option2 = {
+      geo: {
+        type: 'map',
+        map: 'aa'
+      }
+    }
+    myCharts2.setOption(option2)
+    echarts.connect([myCharts,myCharts2])//将柱状图和地图关联起来
+  })
+
+</script>
+
+</html>
